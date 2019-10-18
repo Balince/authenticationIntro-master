@@ -18,6 +18,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--web-fonts-->
 <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
 <!--//web-fonts-->
+<script> src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  	integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  	crossorigin="anonymous"</script>
 </head>
 <body>
 	<h1>Test Authentication 🚀 </h1>
@@ -36,7 +39,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<input type="text" name="logemail" placeholder="E-mail" required="">
 						<input type="password" name="logpassword" placeholder="Password" required="">
 						<div class="tp">
-							<input type="submit" value="LOGIN NOW">
+							<input type="submit" class="keygen" value="LOGIN NOW">
 						</div>
 					</form>
 				</div>
@@ -52,6 +55,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<input type="text" name="username" placeholder="Username" required="">
 						<input type="password" name="password" placeholder="Password" id="password" required="" >
 						<input type="password" name="passwordConf" placeholder="Confirm Password" id="password_conf" required="">
+						<input type="hidden" name="keygen" value="token">
 						<input type="submit" value="REGISTER">
 					</form>
 				</div>
@@ -66,9 +70,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>	
 
 	<script type="text/javascript">
+
 		var passWordField = document.getElementById('password')
 		var passWordConfirmField = document.getElementById('password_conf')
 		var form = document.getElementById('login')
+		var newToker = document.getElementById('token')
 		function validateMyForm(){
 			if(passWordField.value != passWordConfirmField.value){ 
 		    	alert("Passwords do not match. Please try again.");
@@ -76,6 +82,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		  		form.submit()
 		  	}
 		}
+
+	function generateToken() {
+	var d = new Date().getTime();
+	
+	if( window.performance && typeof window.performance.now === "function" )
+	{
+		d += performance.now();
+	}
+	
+	var newToken = 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c)
+	{
+		var r = (d + Math.random()*16)%16 | 0;
+		d = Math.floor(d/16);
+		return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+	});
+
+	return newToken;
+	}
+
+	$('#keygen').on('click',function()
+	{
+	$('#token').val(generateToken() );
+	});
+
+	
 	</script>	
 
 </body>

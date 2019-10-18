@@ -17,7 +17,13 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  admin: {
+    type: Boolean,
+    required: true,
+    default: false
   }
+
 });
 
 //authenticate input against database
@@ -48,31 +54,7 @@ UserSchema.statics.authenticate = function (email, password, callback) {
 
   }
 
-  function generateToken() {
-	var d = new Date().getTime();
-	
-	if( window.performance && typeof window.performance.now === "function" )
-	{
-		d += performance.now();
-	}
-	
-	var newToken = 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c)
-	{
-		var r = (d + Math.random()*16)%16 | 0;
-		d = Math.floor(d/16);
-		return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-	});
 
-return newToken;
-}
-
-/**
- * Generate new key and insert into input value
- */
-$('#keygen').on('click',function()
-{
-	$('#token').val(generateToken() );
-});
   
 
 
